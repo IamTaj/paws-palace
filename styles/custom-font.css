@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Cinzel";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url("../public/fonts/cinzel/Cinzel-Regular.ttf") format("truetype");
+  }
+  
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-display: swap;
+    src: url("../public/fonts/helvetica/helvetica-light.ttf") format("truetype");
+  }

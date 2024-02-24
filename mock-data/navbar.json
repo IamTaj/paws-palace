@@ -1,0 +1,9 @@
+[
+    {"value":"Offer Zone",  "fieldType":"normal"},
+    {"value":"Dogs",  "fieldType":"dropdown"},
+    {"value":"Cats",  "fieldType":"dropdown"},
+    {"value":"Shop By Breed",  "fieldType":"dropdown"},
+    {"value":"Henlo",  "fieldType":"normal"},
+    {"value":"Consult a Vet",  "fieldType":"normal"},
+    {"value":"Pharmacy",  "fieldType":"dropdown"}
+]
