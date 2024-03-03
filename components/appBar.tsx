@@ -185,6 +185,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+      <MenuItem></MenuItem>
     </Menu>
   )
 
@@ -323,37 +324,39 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
-              {userLogin ? (
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-              ) : (
-                <Stack
-                  alignItems={"center"}
-                  m={"auto 40px"}
-                  onClick={() => {
-                    setOpenModal(true)
-                  }}
-                >
-                  <Typography
-                    variant="body-s"
-                    color={theme?.palette?.neuPalette?.hexOne}
-                    sx={{ cursor: "pointer" }}
-                  >
-                    {"Login / Signup"}
-                  </Typography>
-                </Stack>
-              )}
             </Box>
           )}
+          <Box>
+            {userLogin ? (
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            ) : (
+              <Stack
+                alignItems={"center"}
+                m={"auto 40px"}
+                onClick={() => {
+                  setOpenModal(true)
+                }}
+              >
+                <Typography
+                  variant="body-s"
+                  color={theme?.palette?.neuPalette?.hexOne}
+                  sx={{ cursor: "pointer" }}
+                >
+                  {"Login / Signup"}
+                </Typography>
+              </Stack>
+            )}
+          </Box>
           <Box
             sx={{
               display: { xs: "flex", md: "none" },
@@ -376,7 +379,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
       {renderMenu}
       {openModal && (
         <BasicModal
-          style={{ background: "#F6F5F5" }}
+          style={{ background: isMobileView?"rgba(19, 19, 15, 0.5)": "#F6F5F5" }}
           open={openModal}
           handleClose={handleModalClose}
           Component={<SignInLoginTabs />}

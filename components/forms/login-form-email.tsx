@@ -21,6 +21,7 @@ import { ClickToNavigate, PathType } from "../hoc/actions/navigate"
 import { theme } from "@/lib/theme"
 import { ICONS } from "../CONSTANT"
 import { Stack } from "@mui/material"
+import { useMobileCheck } from "@/utils/mobile-viewport-check"
 
 function Copyright(props: any) {
   return (
@@ -47,6 +48,8 @@ export default function EmailLoginFormComponent({
   openSignIn,
 }: any) {
   const auth = getAuth(fireBaseCustomConfig)
+  const isMobile = useMobileCheck()
+
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
 
@@ -77,7 +80,7 @@ export default function EmailLoginFormComponent({
 
   return (
     <Box>
-      <Grid container sx={{ width: "50vw" }}>
+      <Grid container  sx={{ width: isMobile ? "100%" : "50vw" }}>
         <CssBaseline />
         <Grid
           item
