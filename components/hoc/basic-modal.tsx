@@ -2,14 +2,16 @@ import { Box, Modal, Stack, Typography } from "@mui/material"
 import React from "react"
 import CloseIcon from "@mui/icons-material/Close"
 import { theme } from "@/lib/theme"
+import { useMobileCheck } from "@/utils/mobile-viewport-check"
 
 export default function BasicModal({
   open,
   handleClose,
   style,
   Component,
-  closeButton
+  closeButton,
 }: any) {
+  const isMobile = useMobileCheck()
   return (
     <>
       <Modal
@@ -24,7 +26,7 @@ export default function BasicModal({
             width: "100%",
             height: "100%",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: isMobile ? "unset" : "center",
           }}
         >
           <Box
@@ -36,7 +38,12 @@ export default function BasicModal({
               cursor: "pointer",
             }}
           >
-            <CloseIcon sx={{ color: closeButton?closeButton: "black", fontSize: "40px" }} />
+            <CloseIcon
+              sx={{
+                color: closeButton ? closeButton : "black",
+                fontSize: "40px",
+              }}
+            />
           </Box>
           <Box sx={{ position: "relative" }}>
             <Box sx={{ color: "white" }}>{Component}</Box>

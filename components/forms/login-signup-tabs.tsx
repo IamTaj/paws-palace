@@ -9,6 +9,7 @@ import { theme } from "@/lib/theme"
 import EmailSignInFormComponent from "./signin-form-email"
 import EmailLoginFormComponent from "./login-form-email"
 import tabsdata from "../../mock-data/loginSignupTabs.json"
+import { useMobileCheck } from "@/utils/mobile-viewport-check"
 
 export default function SignInLoginTabs() {
   const [selectedTab, setSelectedTab] = useState<number>(0)
@@ -57,7 +58,7 @@ const grey = {
 
 const Tab = styled(BaseTab)`
   font-family: "IBM Plex Sans", sans-serif;
-  color: ${theme?.palette?.neuPalette?.hex};
+  color: ${theme?.palette?.neuPalette?.hexSeventeen};
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 600;
@@ -84,6 +85,10 @@ const Tab = styled(BaseTab)`
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+  @media (max-width: 640px) {
+    width: 30%;
+  }
 `
 
 const TabPanel = styled(BaseTabPanel)(
@@ -95,7 +100,11 @@ const TabPanel = styled(BaseTabPanel)(
   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
   border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
   border-radius: 12px;
-  opacity: 0.6;
+  opacity:  0.6;
+
+  @media (max-width: 640px) {
+    opacity:  1;
+  }
   `
 )
 
@@ -112,5 +121,9 @@ const TabsList = styled(BaseTabsList)(
   box-shadow: 0px 4px 30px ${
     theme.palette.mode === "dark" ? grey[900] : grey[200]
   };
+  @media (max-width: 640px) {
+    width:max-content;
+    margin:0px auto 16px;
+  }
   `
 )

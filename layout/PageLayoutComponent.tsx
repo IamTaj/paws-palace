@@ -1,6 +1,8 @@
 import AppBarHeader from "@/components/appBar"
 import Footer from "@/components/footer"
+import HeroBanner from "@/components/hero-banner"
 import Navbar from "@/components/navbar"
+import SliderComponent from "@/components/slider.component"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
 import { debounce } from "@mui/material"
 import { useEffect, useState } from "react"
@@ -31,9 +33,8 @@ export default function PageLayoutComponent() {
     <>
       <AppBarHeader setShowNavBar={setShowNavBar} showNavBar={showNavBar} />
       <Navbar showNavBar={showNavBar} />
-      <Footer />
-      <Footer />
-      <Footer />
+      <HeroBanner />
+      <SliderComponent />
       <Footer />
     </>
   )

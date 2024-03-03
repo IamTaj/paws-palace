@@ -13,6 +13,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
 import { fireBaseCustomConfig } from "@/firebase.congig"
+import { useMobileCheck } from "@/utils/mobile-viewport-check"
+import { theme } from "@/lib/theme"
 
 function Copyright(props: any) {
   return (
@@ -36,6 +38,8 @@ function Copyright(props: any) {
 
 export default function EmailSignInFormComponent() {
   const auth = getAuth(fireBaseCustomConfig)
+  const isMobile = useMobileCheck()
+
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
 
@@ -70,8 +74,8 @@ export default function EmailSignInFormComponent() {
   }
 
   return (
-    <Box>
-      <Grid container sx={{ width: "50vw" }}>
+    <Box sx={{background:theme?.palette?.neuPalette?.hexOne}}>
+      <Grid container sx={{ width: isMobile ? "100%" : "50vw" }}>
         <CssBaseline />
         <Grid
           item
