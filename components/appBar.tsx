@@ -27,9 +27,12 @@ import LocationOffIcon from "@mui/icons-material/LocationOff"
 import LocationOnIcon from "@mui/icons-material/LocationOn"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
 import useLocation from "@/utils/hooks/getLocation"
-import GetAddressDetails from "@/features/getAddress.service"
+import GetAddressDetails from "@/utils/getAddress.service"
 import LoginFormComponent from "./forms/login-form"
 import SignInLoginTabs from "./forms/login-signup-tabs"
+import { useSelector } from "react-redux"
+import { selectUserData } from "@/globalStore/slices/userSlice"
+import { RootState } from "@/globalStore/paws-palace.store"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -81,6 +84,10 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
   const { latitude, longitude } = useLocation()
   const response = GetAddressDetails({ latitude, longitude })
   const [userCity, setuserCity] = useState<string>()
+
+  const userData = useSelector((state: RootState) => state.users.email)
+  console.log("initialState: ", userData)
+
   useEffect(() => {
     setuserCity(response?.address?.city)
     setTimeout(() => {
@@ -379,7 +386,9 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
       {renderMenu}
       {openModal && (
         <BasicModal
-          style={{ background: isMobileView?"rgba(19, 19, 15, 0.5)": "#F6F5F5" }}
+          style={{
+            background: isMobileView ? "rgba(19, 19, 15, 0.5)" : "#F6F5F5",
+          }}
           open={openModal}
           handleClose={handleModalClose}
           Component={<SignInLoginTabs />}
