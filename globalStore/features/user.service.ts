@@ -15,10 +15,7 @@ export const loginUserService = createAsyncThunk(
         email,
         password
       )
-      console.log("userCredential: ", userCredential)
       const userData = userCredential.user
-      console.log("user?.user?.name", userData?.providerData[0]?.email)
-
       if (userData !== null) {
         const newUser = {
           name: userData?.providerData[0]?.displayName,

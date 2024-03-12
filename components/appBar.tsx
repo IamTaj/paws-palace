@@ -86,7 +86,6 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
   const [userCity, setuserCity] = useState<string>()
 
   const userData = useSelector((state: RootState) => state.users)
-  console.log("initialState: ", userData)
 
   useEffect(() => {
     setuserCity(response?.address?.city)
