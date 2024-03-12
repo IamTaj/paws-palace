@@ -15,7 +15,7 @@ export default function SliderComponent() {
     arrows: false,
     centerPadding: "200px",
     slidesToShow: 1,
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 100,
     autoplaySpeed: 2000,
