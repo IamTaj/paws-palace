@@ -15,6 +15,7 @@ import { useMobileCheck } from "@/utils/mobile-viewport-check"
 import { theme } from "@/lib/theme"
 import { useDispatch } from "react-redux"
 import { loginUserService } from "@/globalStore/features/user.service"
+import { pawsPalaceGlobalStore } from "@/globalStore/paws-palace.store"
 
 function Copyright(props: any) {
   return (
@@ -37,7 +38,8 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function EmailSignInFormComponent() {
-  const dispatch = useDispatch()
+  type AppDispatch = typeof pawsPalaceGlobalStore.dispatch;
+  const dispatch: AppDispatch = useDispatch();
   const isMobile = useMobileCheck()
 
   const [email, setEmail] = useState<string>("")

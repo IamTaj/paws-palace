@@ -85,7 +85,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
   const response = GetAddressDetails({ latitude, longitude })
   const [userCity, setuserCity] = useState<string>()
 
-  const userData = useSelector((state: RootState) => state.users.email)
+  const userData = useSelector((state: RootState) => state.users)
   console.log("initialState: ", userData)
 
   useEffect(() => {
