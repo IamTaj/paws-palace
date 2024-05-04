@@ -28,6 +28,7 @@ export default function PageLayoutComponent() {
       global?.window?.removeEventListener("scroll", debouncedHandleScroll)
     }
   }, [debouncedHandleScroll])
+  console.log("hello")
 
   return (
     <>
