@@ -33,6 +33,7 @@ import SignInLoginTabs from "./forms/login-signup-tabs"
 import { useSelector } from "react-redux"
 import { selectUserData } from "@/globalStore/slices/userSlice"
 import { RootState } from "@/globalStore/paws-palace.store"
+import Link from "next/link"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -78,7 +79,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
   const isMobileView = useMobileCheck()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [searchField, setSearchField] = useState<boolean>(false)
-  const [userLogin, setUSerLogin] = useState<boolean>(false)
+  const [userLogin, setUserLogin] = useState<boolean>(false)
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [showCity, setShowCity] = useState<boolean>(true)
   const { latitude, longitude } = useLocation()
@@ -89,10 +90,11 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
 
   useEffect(() => {
     setuserCity(response?.address?.city)
+    setUserLogin(userData?.isLoggedIn)
     setTimeout(() => {
       setShowCity(false)
-    }, 2000)
-  }, [response])
+    }, 4000)
+  }, [response, userData])
 
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null)
@@ -135,10 +137,11 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
         horizontal: "right",
       }}
       open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
+      onClose={handleMenuClose}>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <Link href="/account/my-account">
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      </Link>
     </Menu>
   )
 
@@ -157,8 +160,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
         horizontal: "right",
       }}
       open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
+      onClose={handleMobileMenuClose}>
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
@@ -171,8 +173,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
-          color="inherit"
-        >
+          color="inherit">
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
           </Badge>
@@ -185,8 +186,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
-          color="inherit"
-        >
+          color="inherit">
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
@@ -205,8 +205,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
-            onClick={() => setShowNavBar(!showNavBar)}
-          >
+            onClick={() => setShowNavBar(!showNavBar)}>
             <MenuIcon />
           </IconButton>
           <Image
@@ -223,8 +222,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
               color: theme?.palette?.neuPalette?.hexOne,
               fontWeight: 700,
               whiteSpace: "nowrap",
-            }}
-          >
+            }}>
             {"PAWS PALACE"}
           </Typography>
           {!isMobileView && (
@@ -236,13 +234,11 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
                 sx={{
                   width: isMobileView ? "250px" : "500px",
                   height: "35px",
-                }}
-              >
+                }}>
                 <ClickAwayListener
                   onClickAway={() => {
                     setSearchField(false)
-                  }}
-                >
+                  }}>
                   <Stack flexDirection={"row"} gap={"40px"}>
                     <SearchIconWrapper>
                       <SearchIcon />
@@ -257,8 +253,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
                         alignItems={"center"}
                         pt={"8px"}
                         ml={"10px"}
-                        sx={{ paddingLeft: `calc(1em + ${theme.spacing(4)})` }}
-                      >
+                        sx={{ paddingLeft: `calc(1em + ${theme.spacing(4)})` }}>
                         <TypewriterExample />
                       </Stack>
                     )}
@@ -267,7 +262,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
               </Box>
             </Search>
           )}
-          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 0.9 }} />
           {!isMobileView && (
             <Box sx={{ display: { md: "flex" } }}>
               <IconButton>
@@ -279,8 +274,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
                           color: theme?.palette?.neuPalette?.hexOne,
                           textAlign: "center",
                         }}
-                        variant={!userCity ? "body-xxxs" : "body-xs"}
-                      >
+                        variant={!userCity ? "body-xxxs" : "body-xs"}>
                         {userCity ? userCity : "fetching location..."}
                       </Typography>
                     </Collapse>
@@ -299,8 +293,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
-                color="inherit"
-              >
+                color="inherit">
                 <Badge
                   badgeContent={4}
                   color="error"
@@ -308,16 +301,14 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
                     "& .MuiBadge-colorError": {
                       background: "#e0115f",
                     },
-                  }}
-                >
+                  }}>
                   <MailIcon />
                 </Badge>
               </IconButton>
               <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
-                color="inherit"
-              >
+                color="inherit">
                 <Badge
                   badgeContent={17}
                   color="error"
@@ -325,8 +316,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
                     "& .MuiBadge-colorError": {
                       background: "#e0115f",
                     },
-                  }}
-                >
+                  }}>
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
@@ -341,8 +331,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
                 aria-controls={menuId}
                 aria-haspopup="true"
                 onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
+                color="inherit">
                 <AccountCircle />
               </IconButton>
             ) : (
@@ -351,13 +340,11 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
                 m={"auto 40px"}
                 onClick={() => {
                   setOpenModal(true)
-                }}
-              >
+                }}>
                 <Typography
                   variant="body-s"
                   color={theme?.palette?.neuPalette?.hexOne}
-                  sx={{ cursor: "pointer" }}
-                >
+                  sx={{ cursor: "pointer" }}>
                   {"Login / Signup"}
                 </Typography>
               </Stack>
@@ -366,16 +353,14 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
           <Box
             sx={{
               display: { xs: "flex", md: "none" },
-            }}
-          >
+            }}>
             <IconButton
               size="large"
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
+              color="inherit">
               <MoreIcon />
             </IconButton>
           </Box>
