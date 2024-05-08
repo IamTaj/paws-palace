@@ -6,7 +6,6 @@ import { basePageServerSide } from "@/lib/getPageSchema"
 const inter = Inter({ subsets: ["latin"] })
 
 export default function Home(props: any) {
-  console.log("props: ", props)
   return (
     <>
       <PageLayoutComponent />
@@ -16,7 +15,6 @@ export default function Home(props: any) {
 
 export const getServerSideProps = async (context: any) => {
   let { resolvedUrl } = context
-  console.log('resolvedUrl: ', resolvedUrl);
   const baseProps = await basePageServerSide(context, resolvedUrl.split("?")[0])
   return baseProps
 }
