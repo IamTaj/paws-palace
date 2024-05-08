@@ -1,9 +1,12 @@
 import AppBarHeader from "@/components/appBar"
 import Footer from "@/components/footer"
+import HeroBanner from "@/components/hero-banner"
 import Navbar from "@/components/navbar"
+import SliderComponent from "@/components/slider.component"
+import { PageContext } from "@/lib/prepare-page-context"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
 import { debounce } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 export default function PageLayoutComponent() {
   const isMobileView = useMobileCheck()
@@ -27,14 +30,22 @@ export default function PageLayoutComponent() {
     }
   }, [debouncedHandleScroll])
 
+  const pageContext = useMemo(
+    () => ({
+      isMobileView
+    }),
+    [],
+  )
+
   return (
     <>
+      <PageContext.Provider value={PageContext}>
       <AppBarHeader setShowNavBar={setShowNavBar} showNavBar={showNavBar} />
       <Navbar showNavBar={showNavBar} />
+      <HeroBanner />
+      <SliderComponent />
       <Footer />
-      <Footer />
-      <Footer />
-      <Footer />
+      </PageContext.Provider>
     </>
   )
 }

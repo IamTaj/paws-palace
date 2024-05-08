@@ -11,8 +11,11 @@ import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
-import { fireBaseCustomConfig } from "@/firebase.congig"
+import { useMobileCheck } from "@/utils/mobile-viewport-check"
+import { theme } from "@/lib/theme"
+import { useDispatch } from "react-redux"
+import { loginUserService } from "@/globalStore/features/user.service"
+import { pawsPalaceGlobalStore } from "@/globalStore/paws-palace.store"
 
 function Copyright(props: any) {
   return (
@@ -35,31 +38,19 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function EmailSignInFormComponent() {
-  const auth = getAuth(fireBaseCustomConfig)
+  type AppDispatch = typeof pawsPalaceGlobalStore.dispatch;
+  const dispatch: AppDispatch = useDispatch();
+  const isMobile = useMobileCheck()
+
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault()
     if (email && password) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("userCredential: ", userCredential)
-          const user = userCredential.user
-          console.log("user: ", user)
-          alert(`user created ${user}`)
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-          console.log("errorCode: ", errorCode, errorMessage)
-          //   alert(errorMessage)
-          // ..
-        })
+      dispatch(loginUserService({ email, password }))
     }
   }
-
   const handleChange = (event: any) => {
     const { name, value } = event?.target
     if (name === "email") {
@@ -70,8 +61,8 @@ export default function EmailSignInFormComponent() {
   }
 
   return (
-    <Box>
-      <Grid container sx={{ width: "50vw" }}>
+    <Box sx={{ background: theme?.palette?.neuPalette?.hexOne }}>
+      <Grid container sx={{ width: isMobile ? "100%" : "50vw" }}>
         <CssBaseline />
         <Grid
           item

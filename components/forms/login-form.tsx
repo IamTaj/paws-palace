@@ -24,7 +24,6 @@ import { fireBaseCustomConfig } from "../../firebase.congig"
 
 export default function LoginFormComponent() {
   const [userInputData, setUserInputdata] = useState<any>({})
-  console.log("userInputData: ", userInputData)
   const [otp, setOtp] = useState<any>()
   const [confirmationResult, setConfirmationResult] = useState<any>()
   const [otpSent, setOtpSent] = useState<any>(false)
@@ -32,10 +31,7 @@ export default function LoginFormComponent() {
   const auth = getAuth(fireBaseCustomConfig)
 
   const handleChange = (event: any) => {
-    console.log('event: ', event);
-    console.log("event: ", event)
     const { name, value } = event?.target
-    console.log("name, value: ", name, value)
     if (name === "phoneNumber") {
       setUserInputdata((prev: any) => {
         return {
