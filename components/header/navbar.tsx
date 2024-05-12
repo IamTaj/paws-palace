@@ -1,6 +1,6 @@
 import { Box, Collapse, Stack, Typography } from "@mui/material"
 import React from "react"
-import navbarData from "../mock-data/navbar.json"
+import navbarData from "../../mock-data/navbar.json"
 import { theme } from "@/lib/theme"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
@@ -25,6 +25,7 @@ export default function Navbar({ showNavBar }: any) {
             "@media(min-width:1920px)": {
               transform: "translateX(27%)",
             },
+            zIndex: 999,
           }}
         >
           <Stack

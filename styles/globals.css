@@ -70,7 +70,7 @@ iframe[name="HyperServices"] {
 }
 
 ::-webkit-scrollbar {
-  width: 10px; /* Added as per requirement scroll should visible*/
+  width: 0px; /* Added as per requirement scroll should visible*/
 }
 
 ::-webkit-scrollbar-track {

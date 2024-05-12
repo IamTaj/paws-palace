@@ -2,12 +2,17 @@ import React from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { Box, Stack } from "@mui/material"
-import { MOBILE_SLIDER_IMAGE, WEBSITE_SLIDER_IMAGE } from "./CONSTANT"
+import { Box } from "@mui/material"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
-import { CommonCarouselStyles } from "./styles/slider"
+import { renderComponentUtility } from "./renderComponent"
 
-export default function SliderComponent() {
+interface GroupInterface {
+  items: any[]
+}
+
+export default function SliderComponent({ items }: GroupInterface) {
+  const isNotSingle = items?.length > 1
+
   const isMobile = useMobileCheck()
   var settings = {
     className: "center",
@@ -16,9 +21,13 @@ export default function SliderComponent() {
     centerPadding: "200px",
     slidesToShow: 1,
     dots: false,
-    infinite: true,
     speed: 100,
     autoplaySpeed: 2000,
+    autoplay: isNotSingle,
+    infinite: isNotSingle,
+    swipeToSlide: isNotSingle,
+    initialSlide: 0,
+    slidesToScroll: 1,
   }
   return (
     <Box
@@ -29,54 +38,11 @@ export default function SliderComponent() {
       }}
     >
       <Slider {...settings}>
-        <Box
-          component={"img"}
-          src={
-            isMobile
-              ? MOBILE_SLIDER_IMAGE?.SLIDER_1
-              : WEBSITE_SLIDER_IMAGE?.SLIDER_1
-          }
-        ></Box>
-        <Box
-          component={"img"}
-          src={
-            isMobile
-              ? MOBILE_SLIDER_IMAGE?.SLIDER_2
-              : WEBSITE_SLIDER_IMAGE?.SLIDER_2
-          }
-        ></Box>
-        <Box
-          component={"img"}
-          src={
-            isMobile
-              ? MOBILE_SLIDER_IMAGE?.SLIDER_3
-              : WEBSITE_SLIDER_IMAGE?.SLIDER_3
-          }
-        ></Box>
-        <Box
-          component={"img"}
-          src={
-            isMobile
-              ? MOBILE_SLIDER_IMAGE?.SLIDER_4
-              : WEBSITE_SLIDER_IMAGE?.SLIDER_4
-          }
-        ></Box>
-        <Box
-          component={"img"}
-          src={
-            isMobile
-              ? MOBILE_SLIDER_IMAGE?.SLIDER_5
-              : WEBSITE_SLIDER_IMAGE?.SLIDER_5
-          }
-        ></Box>
-        <Box
-          component={"img"}
-          src={
-            isMobile
-              ? MOBILE_SLIDER_IMAGE?.SLIDER_6
-              : WEBSITE_SLIDER_IMAGE?.SLIDER_6
-          }
-        ></Box>
+        {items?.map((item: any, index: any) => (
+          <React.Fragment key={`banner-${index}`}>
+            {renderComponentUtility(item)}
+          </React.Fragment>
+        ))}
       </Slider>
     </Box>
   )
