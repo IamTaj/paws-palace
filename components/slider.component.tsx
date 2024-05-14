@@ -18,7 +18,7 @@ export default function SliderComponent({ items }: GroupInterface) {
     className: "center",
     centerMode: true,
     arrows: false,
-    centerPadding: "200px",
+    centerPadding: isMobile ? "0vw" : "200px",
     slidesToShow: 1,
     dots: false,
     speed: 100,
