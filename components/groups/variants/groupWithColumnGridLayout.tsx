@@ -6,7 +6,6 @@ import React from "react"
 export default function GroupWithColumnGridLayout({ items, column }: any) {
   const isMobile = useMobileCheck()
   const columnBreakPoints = isMobile ? 4 : 12 / column
-  console.log("columnBreakPoints: ", columnBreakPoints)
   return (
     <Box>
       <Grid container spacing={2}>

@@ -14,7 +14,6 @@ import { Stack } from "@mui/material"
 
 export default function SignInLoginTabs() {
   const [selectedTab, setSelectedTab] = useState<number>(0)
-  console.log("selectedTab: ", selectedTab)
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setSelectedTab(newValue)

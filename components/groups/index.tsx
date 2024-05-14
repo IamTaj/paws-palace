@@ -12,7 +12,6 @@ export default function Group(props: any) {
   const groupVariant = isMobileView ? variant : largeVariant
   const isBackground = groupVariant === "greyBackgroundGroup"
   const columnValue = gridLayout && columnSize
-  console.log("columnValue: ", columnValue)
   return (
     <Box
       mt={
