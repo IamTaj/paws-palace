@@ -38,8 +38,8 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function EmailSignInFormComponent() {
-  type AppDispatch = typeof pawsPalaceGlobalStore.dispatch;
-  const dispatch: AppDispatch = useDispatch();
+  type AppDispatch = typeof pawsPalaceGlobalStore.dispatch
+  const dispatch: AppDispatch = useDispatch()
   const isMobile = useMobileCheck()
 
   const [email, setEmail] = useState<string>("")
@@ -130,9 +130,14 @@ export default function EmailSignInFormComponent() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 2, mb: 2, borderRadius: "50px" }}
               >
-                Sign In
+                <Typography
+                  variant="body-xxs"
+                  sx={{ color: theme?.palette?.neuPalette?.hexOne }}
+                >
+                  Sign In
+                </Typography>
               </Button>
               <Grid container>
                 <Grid item xs>

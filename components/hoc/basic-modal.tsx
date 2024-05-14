@@ -10,6 +10,7 @@ export default function BasicModal({
   style,
   Component,
   closeButton,
+  top,
 }: any) {
   const isMobile = useMobileCheck()
   return (
@@ -20,35 +21,38 @@ export default function BasicModal({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Stack
-          style={style}
-          sx={{
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
-            alignItems: isMobile ? "unset" : "center",
-          }}
-        >
-          <Box
-            onClick={handleClose}
+        <Box style={style} height={"100%"}>
+          <Stack
+            className="hehe"
             sx={{
-              position: "absolute",
-              top: "10%",
-              right: "10%",
-              cursor: "pointer",
+              width: "100%",
+              height: "100%",
+              justifyContent: "center",
+              alignItems: isMobile ? "unset" : "center",
+              overflow: "scroll",
             }}
           >
-            <CloseIcon
+            <Box
+              onClick={handleClose}
               sx={{
-                color: closeButton ? closeButton : "black",
-                fontSize: "40px",
+                position: "absolute",
+                top: "10%",
+                right: "10%",
+                cursor: "pointer",
               }}
-            />
-          </Box>
-          <Box sx={{ position: "relative" }}>
-            <Box sx={{ color: "white" }}>{Component}</Box>
-          </Box>
-        </Stack>
+            >
+              <CloseIcon
+                sx={{
+                  color: closeButton ? closeButton : "black",
+                  fontSize: "40px",
+                }}
+              />
+            </Box>
+            <Box sx={{ position: "relative", top: "6vw" }}>
+              <Box sx={{ color: "white" }}>{Component}</Box>
+            </Box>
+          </Stack>
+        </Box>
       </Modal>
     </>
   )

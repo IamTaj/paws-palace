@@ -11,17 +11,16 @@ import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-} from "firebase/auth"
+import { getAuth } from "firebase/auth"
 import { fireBaseCustomConfig } from "@/firebase.congig"
-import { ClickToNavigate, PathType } from "../hoc/actions/navigate"
 import { theme } from "@/lib/theme"
 import { ICONS } from "../CONSTANT"
-import { Stack } from "@mui/material"
+import { IconButton, InputAdornment, Stack } from "@mui/material"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
+import { Visibility, VisibilityOff } from "@mui/icons-material"
+import { handler as ProfileHandler } from "../../features/sso/api/handlers/profile.service"
+import { handler as RegisterHandler } from "../../features/sso/api/handlers/register.service"
+import { useRouter } from "next/router"
 
 function Copyright(props: any) {
   return (
@@ -41,64 +40,98 @@ function Copyright(props: any) {
   )
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 export default function EmailLoginFormComponent({
   setOpenSignIn,
   openSignIn,
 }: any) {
   const auth = getAuth(fireBaseCustomConfig)
   const isMobile = useMobileCheck()
+  const router = useRouter()
 
-  const [email, setEmail] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
+  // const [email, setEmail] = useState<string>("")
+  // const [password, setPassword] = useState<string>("")
+  const [userData, setUserData]: any = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    registeredAt: "PAWS PALACE",
+  })
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event?.preventDefault()
-    if (email && password) {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-        })
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
+
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event?.preventDefault()
+  //   if (userData?.email && userData?.password) {
+  //     signInWithEmailAndPassword(auth, email, password)
+  //       .then((userCredential) => {
+  //         // Signed in
+  //         const user = userCredential.user
+  //         // ...
+  //       })
+  //       .catch((error) => {
+  //         const errorCode = error.code
+  //         const errorMessage = error.message
+  //       })
+  //   }
+  // }
+
+  const setProfileDetails = async () => {
+    setLoading(true)
+    try {
+      const { error, data } = await ProfileHandler.apiCall()
+      if (error === false) {
+        global?.window?.localStorage?.setItem("firstName", data?.firstName)
+        global?.window?.localStorage?.setItem("lastName", data?.lastName)
+        router?.reload()
+      }
+    } catch (error) {
+      console.log("error at user profile", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleRegister = async () => {
+    setLoading(true)
+    try {
+      const { error, data } = await RegisterHandler.apiCall(userData)
+      if (error === false) {
+        global?.window?.localStorage?.setItem("accessToken", data?.token)
+        setProfileDetails()
+      }
+    } catch (error) {
+      console.log("error at SSO Login", error)
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleChange = (event: any) => {
     const { name, value } = event?.target
-    if (name === "email") {
-      setEmail(value)
-    } else if (name === "password") {
-      setPassword(value)
-    }
+    setUserData({
+      ...userData,
+      [name]: value,
+    })
   }
 
   return (
     <Box>
-      <Grid container  sx={{ width: isMobile ? "100%" : "50vw" }}>
+      <Grid container sx={{ width: isMobile ? "100%" : "50vw" }}>
         <CssBaseline />
         <Grid
           item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage: `url(${process.env.NEXT_PUBLIC_UNSPLASH_LINK})`,
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          xs={12}
+          sm={8}
+          md={12}
+          component={Paper}
+          elevation={6}
+          square
+        >
           <Box
             sx={{
               my: 8,
@@ -117,12 +150,31 @@ export default function EmailLoginFormComponent({
               </Typography>
               <Box component={"img"} src={ICONS?.DOG_LOGO} width={"50px"}></Box>
             </Stack>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
-            >
+            <Box component="form" noValidate sx={{ mt: 1 }}>
+              <Stack sx={{ flexDirection: "row", gap: "3vw" }}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  name="firstName"
+                  autoComplete="off"
+                  autoFocus
+                  onChange={(e: any) => handleChange(e)}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="off"
+                  autoFocus
+                  onChange={(e: any) => handleChange(e)}
+                />
+              </Stack>
               <TextField
                 margin="normal"
                 required
@@ -140,10 +192,23 @@ export default function EmailLoginFormComponent({
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 autoComplete="current-password"
                 onChange={(e: any) => handleChange(e)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -153,13 +218,14 @@ export default function EmailLoginFormComponent({
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 2, mb: 2, borderRadius: "50px" }}
+                onClick={handleRegister}
               >
                 <Typography
                   variant="body-xxs"
                   sx={{ color: theme?.palette?.neuPalette?.hexOne }}
                 >
-                  LOGIN
+                  Login
                 </Typography>
               </Button>
               <Grid container>
