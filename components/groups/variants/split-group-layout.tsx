@@ -4,8 +4,6 @@ import { Box, Grid, keyframes, Typography } from "@mui/material"
 import React, { Fragment } from "react"
 
 export default function SplitGroupLayoutComponent({ items }: any) {
-  const isNotColor = items?.[1]?.largeVariant === "groupWithHalfWidthSlider"
-
   const animationKeyFrame = keyframes`
     100% {
         offset-distance: 100%;
@@ -15,8 +13,7 @@ export default function SplitGroupLayoutComponent({ items }: any) {
   return (
     <Box
       sx={{
-        background: isNotColor && theme?.palette?.neuPalette?.hexThirtyFour,
-        padding: "2vw 0vw 8vw",
+        padding: "2vw 0vw",
         marginTop: "4vw",
       }}
     >

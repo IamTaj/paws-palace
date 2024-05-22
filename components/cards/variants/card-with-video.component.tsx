@@ -103,7 +103,7 @@ export default function CardWithVideoComponent({ video, identifier }: any) {
                       }}
                       variant={isMobile ? "m-body-l" : "body-l"}
                     >
-                      {hoursLeft}
+                      {hoursLeft > 1 ? `${hoursLeft}` : `0${hoursLeft}`}
                     </Typography>
                   </Box>
                   <Typography variant={isMobile ? "m-body-s" : "body-s"}>
