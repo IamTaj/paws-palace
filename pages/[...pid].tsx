@@ -9,7 +9,7 @@ export default function Homepage(props: any) {
   return (
     <>
       <Head>
-        <title>Drift</title>
+        <title>Paws Palace</title>
         <meta
           name='description'
           content='An exclusive store where your fashion meets drift'
@@ -25,5 +25,6 @@ export default function Homepage(props: any) {
 export const getServerSideProps = async (context: any) => {
   let { resolvedUrl } = context
   const baseProps = await basePageServerSide(context, resolvedUrl.split('?')[0])
+  console.log('baseProps: ', baseProps);
   return baseProps
 }

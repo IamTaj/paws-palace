@@ -10,22 +10,29 @@ import EmailSignInFormComponent from "./signin-form-email"
 import EmailLoginFormComponent from "./login-form-email"
 import tabsdata from "../../mock-data/loginSignupTabs.json"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
+import { Stack } from "@mui/material"
 
 export default function SignInLoginTabs() {
   const [selectedTab, setSelectedTab] = useState<number>(0)
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setSelectedTab(newValue)
+  }
   return (
-    <Tabs defaultValue={selectedTab}>
+    <Tabs defaultValue={selectedTab} onChange={(e: any) => handleChange}>
       <TabsList>
         {tabsdata?.map((item: any, index: number) => (
           <Tab value={index}>{item?.value}</Tab>
         ))}
       </TabsList>
-      <TabPanel value={0}>
-        <EmailSignInFormComponent />
-      </TabPanel>
-      <TabPanel value={1}>
-        <EmailLoginFormComponent />
-      </TabPanel>
+      <Stack>
+        <TabPanel value={0}>
+          <EmailSignInFormComponent />
+        </TabPanel>
+        <TabPanel value={1}>
+          <EmailLoginFormComponent />
+        </TabPanel>
+      </Stack>
     </Tabs>
   )
 }

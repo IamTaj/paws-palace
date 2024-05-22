@@ -14,10 +14,10 @@ export const loginUserService = createAsyncThunk(
         auth,
         email,
         password
-        )
+      )
       const userData = userCredential.user
       if (userData !== null) {
-        auth?.updateCurrentUser({})
+        // auth?.updateCurrentUser({""})
         const newUser = {
           name: userData?.providerData[0]?.displayName,
           mobileNumber: userData?.providerData[0]?.phoneNumber,
