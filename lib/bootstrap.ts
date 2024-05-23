@@ -1,7 +1,6 @@
-import { ManifestDefinition } from "@/types"
-let coreRegistry: ManifestDefinition[] = []
+let coreRegistry: any[] = []
 
-export function bootstrap(registry: ManifestDefinition[]) {
+export function bootstrap(registry: any) {
   coreRegistry = registry
 
   const map = {
@@ -17,7 +16,7 @@ export function bootstrap(registry: ManifestDefinition[]) {
     customVariantsMap: {},
   }
 
-  return registry.reduce((obj, item: ManifestDefinition) => {
+  return registry.reduce((obj:any, item: any) => {
     obj.componentMap = { ...obj.componentMap, ...item?.components }
     obj.groupVariantMap = { ...obj.groupVariantMap, ...item?.groupVariants }
     obj.cardVariantMap = { ...obj.cardVariantMap, ...item?.cardVariants }
@@ -47,7 +46,7 @@ export function bootstrap(registry: ManifestDefinition[]) {
       ...item?.customVariants,
     }
 
-    const itemStoreMap = item?.stores?.reduce((storeMap, store) => {
+    const itemStoreMap = item?.stores?.reduce((storeMap:any, store:any) => {
       storeMap = { ...storeMap, [store.name]: store.instance }
       return storeMap
     }, {})
@@ -63,7 +62,7 @@ export function bootstrapPage(configuredStores: any[]): any {
   }
 
   return coreRegistry.reduce((obj, item) => {
-    const itemStoreMap = item?.pageStores.reduce((pageStoreMap, store) => {
+    const itemStoreMap = item?.pageStores.reduce((pageStoreMap:any, store:any) => {
       const isConfigured = configuredStores.find(
         (configuredStore) => configuredStore.variant === store.name
       )
