@@ -8,7 +8,6 @@ import PageBody from "./pageBody"
 import Navbar from "@/components/header/navbar"
 
 export default function PageLayoutComponent({ data, ...props }: any) {
-  console.log("data: ", data)
   const isMobileView = useMobileCheck()
   const [showNavBar, setShowNavBar] = useState<any>(true)
   const handleScroll = () => {
