@@ -8,7 +8,7 @@ import PageBody from "./pageBody"
 import Navbar from "@/components/header/navbar"
 
 export default function PageLayoutComponent({ data, ...props }: any) {
-  console.log('data: ', data);
+  console.log("data: ", data)
   const isMobileView = useMobileCheck()
   const [showNavBar, setShowNavBar] = useState<any>(true)
   const handleScroll = () => {
@@ -30,18 +30,16 @@ export default function PageLayoutComponent({ data, ...props }: any) {
     }
   }, [debouncedHandleScroll])
 
-  const pageContext = useMemo(
+  const pageContext: any = useMemo(
     () => ({
       isMobileView,
     }),
     []
   )
 
-  console.log('data', data)
-
   return (
     <>
-      <PageContext.Provider value={PageContext}>
+      <PageContext.Provider value={pageContext}>
         <AppBarHeader setShowNavBar={setShowNavBar} showNavBar={showNavBar} />
         <Navbar showNavBar={showNavBar} />
         <PageBody {...data} />
