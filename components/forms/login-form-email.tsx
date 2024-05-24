@@ -55,7 +55,7 @@ export default function EmailLoginFormComponent({
     lastName: "",
     email: "",
     password: "",
-    registeredAt: "PAWS PALACE",
+    registeredAt: "PAWS_PALACE",
   })
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -96,7 +96,8 @@ export default function EmailLoginFormComponent({
     }
   }
 
-  const handleRegister = async () => {
+  const handleRegister = async (e: any) => {
+    e.preventDefault()
     setLoading(true)
     try {
       const { error, data } = await RegisterHandler.apiCall(userData)
@@ -219,7 +220,7 @@ export default function EmailLoginFormComponent({
                 fullWidth
                 variant="contained"
                 sx={{ mt: 2, mb: 2, borderRadius: "50px" }}
-                onClick={handleRegister}
+                onClick={(e: any) => handleRegister(e)}
               >
                 <Typography
                   variant="body-xxs"
