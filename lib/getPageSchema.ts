@@ -1,13 +1,13 @@
-import { getClient } from '@/lib-sanity'
-import { getPageQuery } from './sanity-queries'
+import { getClient } from "@/lib-sanity"
+import { getPageQuery } from "./sanity-queries"
 
 const getServerSideProps = async (context: any, path: any) => {
   const isMobileInitial =
     /(Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop)/i.test(
-      context.req.headers['user-agent'] || '',
+      context.req.headers["user-agent"] || ""
     )
   let queryParams = context.query
-  const tempPath = path === '/' ? '/homepage' : path
+  const tempPath = path === "/" ? "/homepage" : path
   const query = getPageQuery(tempPath)
   const fetchedData = await getClient(true).fetch(query, { tempPath })
 
