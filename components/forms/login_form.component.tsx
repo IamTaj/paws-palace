@@ -14,8 +14,10 @@ import Typography from "@mui/material/Typography"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
 import { theme } from "@/lib/theme"
 import { useDispatch } from "react-redux"
-import { loginUserService } from "@/globalStore/features/user.service"
 import { pawsPalaceGlobalStore } from "@/globalStore/paws-palace.store"
+import { handler as ProfileHandler } from "../../features/sso/api/handlers/profile.service"
+import { handler as LoginHandler } from "../../features/sso/api/handlers/login.service"
+import { useRouter } from "next/router"
 
 function Copyright(props: any) {
   return (
@@ -35,28 +37,55 @@ function Copyright(props: any) {
   )
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
-export default function EmailSignInFormComponent() {
+export default function LoginFormComponent() {
   type AppDispatch = typeof pawsPalaceGlobalStore.dispatch
-  const dispatch: AppDispatch = useDispatch()
   const isMobile = useMobileCheck()
+  const router = useRouter()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [loginUserDetails, setLoginUserDetails] = useState<any>({
+    email: "",
+    password: "",
+  })
 
-  const [email, setEmail] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
+  const setProfileDetails = async () => {
+    setLoading(true)
+    try {
+      const accessToken = global?.window?.localStorage?.getItem("accessToken")
+      const { error, data } = await ProfileHandler.apiCall(accessToken)
+      if (error === false) {
+        global?.window?.localStorage?.setItem("firstName", data?.firstName)
+        global?.window?.localStorage?.setItem("lastName", data?.lastName)
+        router?.reload()
+      }
+    } catch (error) {
+      console.log("error at user profile", error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: any) => {
     event?.preventDefault()
-    if (email && password) {
-      dispatch(loginUserService({ email, password }))
+    if (loginUserDetails?.email && loginUserDetails?.password) {
+      try {
+        const { error, data } = await LoginHandler.apiCall(loginUserDetails)
+        if (error === false) {
+          global?.window?.localStorage?.setItem("accessToken", data?.token)
+          setProfileDetails()
+        }
+      } catch (error) {
+        console.log("error at SSO Login", error)
+      } finally {
+        setLoading(false)
+      }
     }
   }
   const handleChange = (event: any) => {
     const { name, value } = event?.target
     if (name === "email") {
-      setEmail(value)
+      setLoginUserDetails({ ...loginUserDetails, email: value })
     } else if (name === "password") {
-      setPassword(value)
+      setLoginUserDetails({ ...loginUserDetails, password: value })
     }
   }
 
@@ -93,7 +122,7 @@ export default function EmailSignInFormComponent() {
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1">Sign In</Typography>
+            <Typography component="h1">Log In</Typography>
             <Box
               component="form"
               noValidate
@@ -136,7 +165,7 @@ export default function EmailSignInFormComponent() {
                   variant="body-xxs"
                   sx={{ color: theme?.palette?.neuPalette?.hexOne }}
                 >
-                  Sign In
+                  Login
                 </Typography>
               </Button>
               <Grid container>

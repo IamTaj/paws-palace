@@ -6,14 +6,14 @@ import { TabPanel as BaseTabPanel } from "@mui/base/TabPanel"
 import { buttonClasses } from "@mui/base/Button"
 import { Tab as BaseTab, tabClasses } from "@mui/base/Tab"
 import { theme } from "@/lib/theme"
-import EmailSignInFormComponent from "./signin-form-email"
-import EmailLoginFormComponent from "./login-form-email"
 import tabsdata from "../../mock-data/loginSignupTabs.json"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
 import { Stack } from "@mui/material"
+import SignInFormComponent from "./signup_form.component"
+import LoginFormComponent from "./login_form.component"
 
 export default function SignInLoginTabs() {
-  const [selectedTab, setSelectedTab] = useState<number>(0)
+  const [selectedTab, setSelectedTab] = useState<number>(1)
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setSelectedTab(newValue)
@@ -27,10 +27,10 @@ export default function SignInLoginTabs() {
       </TabsList>
       <Stack>
         <TabPanel value={0}>
-          <EmailSignInFormComponent />
+          <SignInFormComponent />
         </TabPanel>
         <TabPanel value={1}>
-          <EmailLoginFormComponent />
+          <LoginFormComponent />
         </TabPanel>
       </Stack>
     </Tabs>

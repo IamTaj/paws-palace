@@ -40,7 +40,7 @@ function Copyright(props: any) {
   )
 }
 
-export default function EmailLoginFormComponent({
+export default function SignInFormComponent({
   setOpenSignIn,
   openSignIn,
 }: any) {
@@ -83,7 +83,8 @@ export default function EmailLoginFormComponent({
   const setProfileDetails = async () => {
     setLoading(true)
     try {
-      const { error, data } = await ProfileHandler.apiCall()
+      const accessToken = global?.window?.localStorage?.getItem("accessToken")
+      const { error, data } = await ProfileHandler.apiCall(accessToken)
       if (error === false) {
         global?.window?.localStorage?.setItem("firstName", data?.firstName)
         global?.window?.localStorage?.setItem("lastName", data?.lastName)
@@ -226,15 +227,9 @@ export default function EmailLoginFormComponent({
                   variant="body-xxs"
                   sx={{ color: theme?.palette?.neuPalette?.hexOne }}
                 >
-                  Login
+                  Let's Go
                 </Typography>
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#">Forgot password?</Link>
-                </Grid>
-                <Grid item></Grid>
-              </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>

@@ -1,5 +1,5 @@
 [
-    {"value":"SIGN IN",  "fieldType":"tabTitle","index":0},
-    {"value":"LOGIN",  "fieldType":"tabTitle","index":1}
+    {"value":"SIGNUP",  "fieldType":"tabTitle","index":1},
+    {"value":"LOGIN",  "fieldType":"tabTitle","index":0}
 
 ]
