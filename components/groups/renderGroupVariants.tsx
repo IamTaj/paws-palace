@@ -6,6 +6,7 @@ import GroupWithColumnGridLayout from "./variants/groupWithColumnGridLayout"
 import SplitGroupLayoutComponent from "./variants/split-group-layout"
 import GroupWithDealTrackerComponent from "./variants/group-with-deal-tracker"
 import GroupWithSpiningCardsComponent from "./variants/group-with-spining-card.component"
+import GroupWithHalfSliderComponent from "./variants/groupWithHalfSliderComponent"
 
 export default function renderGroupVariant(
   variant: string,
@@ -22,6 +23,7 @@ export default function renderGroupVariant(
     splitGroupComponent: <SplitGroupLayoutComponent items={items} />,
     dealTrackGroup: <GroupWithDealTrackerComponent items={items} />,
     groupWithSpiningCard: <GroupWithSpiningCardsComponent items={items} />,
+    groupWithHalfWidthSlider: <GroupWithHalfSliderComponent items={items}/>
   }
   return allVariants[variant]
 }
