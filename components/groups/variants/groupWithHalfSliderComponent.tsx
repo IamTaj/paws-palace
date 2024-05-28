@@ -10,7 +10,7 @@ import { EffectCoverflow, Pagination } from "swiper/modules"
 import renderCardVariant from "@/components/cards/renderCardVariant"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
 import { Box } from "@mui/material"
-import { DesktopPxToVw } from "@/utils/view-port-calculator"
+import { DesktopPxToVw, MobilePxToVw } from "@/utils/view-port-calculator"
 
 export default function GroupWithHalfSliderComponent({ items }: any) {
   const [sliderProducts, setSliderProducts] = useState<any[]>([])
@@ -40,7 +40,7 @@ export default function GroupWithHalfSliderComponent({ items }: any) {
   }, [items])
 
   const handleSlideChange = (swiper: any) => {
-    setActiveIndex(swiper.activeIndex) 
+    setActiveIndex(swiper.activeIndex)
   }
 
   return (
@@ -54,6 +54,29 @@ export default function GroupWithHalfSliderComponent({ items }: any) {
           height: `calc(100% + ${DesktopPxToVw(12)})`,
         },
         ".swiper-slide .hide-box": { visibility: "hidden" },
+        ".swiper": {
+          width: "100%",
+        },
+
+        ".swiper-slide": {
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          width: "50% !important",
+        },
+        "@media(max-width:640px)": {
+          ".swiper-slide": {
+            border: "4px solid white",
+          },
+
+          ".swiper-slide-active": {
+            border: "none",
+            background: "white",
+            padding: "4vw",
+          },
+          ".swiper-wrapper": {
+            width: `calc(100% - ${MobilePxToVw(100)})`,
+          },
+        },
       }}
     >
       <Swiper
