@@ -1,10 +1,9 @@
 import { urlFor } from "@/lib-sanity"
-import { theme } from "@/lib/theme"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
 import { Box, Collapse, Stack, Typography } from "@mui/material"
 import React from "react"
 
-export default function CardWithProductDeatils({
+export default function CardWithProductDeatilsMSite({
   brandName,
   images,
   name,
@@ -15,25 +14,20 @@ export default function CardWithProductDeatils({
   const isMobile = useMobileCheck()
 
   return (
-    <Box
-      sx={{
-        border: `4px solid ${theme?.palette?.neuPalette?.hexOne}`,
-        padding: "20px",
-        borderRadius: "10px",
-      }}
-    >
+    <Box>
       <Typography
+      className="hide-box"
         sx={{
           fontWeight: 700,
           letterSpacing: "-0.03em",
           color: "#FFFFFF",
           background: "#ff3f32",
-          borderRadius: "5px",
+          borderRadius: "0px 0px 5px",
           padding: "7px 5px 5px",
           zIndex: 2,
           position: "absolute",
-          left: "14px",
-          top: "14px",
+          left: isMobile ? "0px" : "14px",
+          top: isMobile ? "0px" : "14px",
         }}
       >{`UPTO ${price?.discount?.percent}% OFF`}</Typography>
       <Box
