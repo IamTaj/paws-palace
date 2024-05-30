@@ -30,7 +30,7 @@ export default function CustomUpdateTextField({
           endAdornment: (
             <InputAdornment position="start">
               <Grow
-                in={showEditIcon || !disable}
+                in={(showEditIcon && showButton) || !disable}
                 style={{ transformOrigin: "0 0 0", animation: "ease-in-out" }}
                 timeout={400}
               >
