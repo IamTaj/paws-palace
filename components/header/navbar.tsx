@@ -4,12 +4,14 @@ import navbarData from "../../mock-data/navbar.json"
 import { theme } from "@/lib/theme"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
+import { useRouter } from "next/router"
 
-export default function Navbar({ showNavBar }: any) {
+export default function Navbar({ showNavBar, isMyAccount }: any) {
   const isMobileView = useMobileCheck()
+
   return (
     <Collapse
-      in={showNavBar && !isMobileView}
+      in={showNavBar && !isMobileView && !isMyAccount}
       timeout={300}
       easing={{ enter: "cubic-bezier(0,-1.55,.61,1.58)", exit: "linear" }}
       sx={{ scrollBehavior: "smooth", transitionDuration: "300s" }}

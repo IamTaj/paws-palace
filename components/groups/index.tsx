@@ -16,6 +16,7 @@ export default function Group(props: any) {
     aesthetic,
   } = props
   const groupBackgroundColor = aesthetic?.backgroundColor
+  console.log("groupBackgroundColor: ", groupBackgroundColor)
   const groupPadding = aesthetic?.padding
   const isMobileView = useMobileCheck()
 
@@ -28,11 +29,11 @@ export default function Group(props: any) {
         isBackground ? (isMobileView ? MobilePxToVw(40) : DesktopPxToVw(80)) : 0
       }
       mx={title ? (isMobileView ? MobilePxToVw(20) : DesktopPxToVw(100)) : 0}
-      bgcolor={groupBackgroundColor ? groupBackgroundColor : "none"}
       borderRadius={
         isBackground ? (isMobileView ? MobilePxToVw(30) : DesktopPxToVw(30)) : 0
       }
       p={groupPadding ? groupPadding : 0}
+      sx={{ background: groupBackgroundColor ? groupBackgroundColor : "none" }}
     >
       {title && <MultiRowTitle title={title} />}
       {groupVariant && renderGroupVariant(groupVariant, items, columnValue)}

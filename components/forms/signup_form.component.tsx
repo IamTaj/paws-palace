@@ -88,6 +88,7 @@ export default function SignInFormComponent({
       if (error === false) {
         global?.window?.localStorage?.setItem("firstName", data?.firstName)
         global?.window?.localStorage?.setItem("lastName", data?.lastName)
+        global?.window?.localStorage?.setItem("email", data?.email)
         router?.reload()
       }
     } catch (error) {

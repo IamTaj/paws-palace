@@ -1,0 +1,41 @@
+[
+  {
+    "tabTitle": "ACCOUNT SETTING",
+    "tabsItem": [
+      {
+        "tabName": "MY PROFILE",
+        "index": 0
+      },
+      {
+        "tabName": "EDIT PROFILE",
+        "index": 1
+      }
+    ]
+  },
+  {
+    "tabTitle": "ORDERS SUMMARY",
+    "tabsItem": [
+      {
+        "tabName": "ORDERS",
+        "index": 2
+      },
+      {
+        "tabName": "CANCELLED ORDER",
+        "index": 3
+      }
+    ]
+  },
+  {
+    "tabTitle": "SUPPORT & COMMUNITY",
+    "tabsItem": [
+      {
+        "tabName": "INVITE FRIENDS",
+        "index": 4
+      },
+      {
+        "tabName": "FAQ/ CONTACT US",
+        "index": 5
+      }
+    ]
+  }
+]
