@@ -207,6 +207,7 @@ export default function UpdateProfile({ tabTitle }: any) {
                 value={userUpdatedData?.email}
                 name={"email"}
                 handleChangeForm={handleChangeForm}
+                showButton={false}
                 disabled
                 variant="standard"
                 fullWidth
