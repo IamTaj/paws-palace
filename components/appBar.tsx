@@ -35,6 +35,7 @@ import { selectUserData } from "@/globalStore/slices/userSlice"
 import { RootState } from "@/globalStore/paws-palace.store"
 import Link from "next/link"
 import { useLoggedIn } from "@/utils/hooks/useLoggedIn"
+import { useAppNavigation } from "@/utils/useAppNavigation"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -76,7 +77,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   input: { caretColor: `${theme?.palette?.neuPalette?.hexOne}!important` },
 }))
 
-export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
+export default function AppBarHeader({
+  setShowNavBar,
+  showNavBar,
+  isMyAccount,
+}: any) {
   const isMobileView = useMobileCheck()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [searchField, setSearchField] = useState<boolean>(false)
@@ -88,6 +93,7 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
 
   const userData = useSelector((state: RootState) => state.users)
   const userLogin = useLoggedIn()
+  const navigate = useAppNavigation()
 
   useEffect(() => {
     setuserCity(response?.address?.city)
@@ -140,9 +146,14 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <Link href="/account/my-account">
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      </Link>
+      <MenuItem
+        onClick={() => {
+          handleMenuClose
+          navigate("/my-account")
+        }}
+      >
+        My account
+      </MenuItem>
     </Menu>
   )
 
@@ -202,36 +213,46 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-            onClick={() => setShowNavBar(!showNavBar)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Image
-            src={ICONS?.PAWS_PALACE_LOGO}
-            alt={"paws-palace-logo"}
-            width={"80"}
-            height={"80"}
-            style={{ mixBlendMode: "color" }}
-          />
-          {!isMobileView && (
-            <Typography
-              variant="body-m"
-              component="div"
-              sx={{
-                color: theme?.palette?.neuPalette?.hexOne,
-                fontWeight: 700,
-                whiteSpace: "nowrap",
-              }}
+        <Toolbar
+          sx={{
+            padding: isMyAccount ? "1vw 5vw 1vw 10vw !important" : "initial",
+          }}
+        >
+          {!isMyAccount && (
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+              onClick={() => setShowNavBar(!showNavBar)}
             >
-              {"PAWS PALACE"}
-            </Typography>
+              <MenuIcon />
+            </IconButton>
+          )}
+          <Link href={"/"}>
+            <Image
+              src={ICONS?.PAWS_PALACE_LOGO}
+              alt={"paws-palace-logo"}
+              width={"80"}
+              height={"80"}
+              style={{ mixBlendMode: "color" }}
+            />
+          </Link>
+          {!isMobileView && (
+            <Link href={"/"}>
+              <Typography
+                variant="body-m"
+                component="div"
+                sx={{
+                  color: theme?.palette?.neuPalette?.hexOne,
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {"PAWS PALACE"}
+              </Typography>
+            </Link>
           )}
           {!isMobileView && (
             <Search>
@@ -341,53 +362,55 @@ export default function AppBarHeader({ setShowNavBar, showNavBar }: any) {
               </IconButton>
             </Box>
           )}
-          <Box>
-            {userLogin ? (
+          <Stack flexDirection={"row"} gap={5}>
+            <Box>
+              {userLogin ? (
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              ) : (
+                <Stack
+                  alignItems={"center"}
+                  m={"auto 40px"}
+                  onClick={() => {
+                    setOpenModal(true)
+                  }}
+                >
+                  <Typography
+                    variant="body-xxs"
+                    color={theme?.palette?.neuPalette?.hexOne}
+                    sx={{ cursor: "pointer" }}
+                  >
+                    {"LOGIN / SIGNUP"}
+                  </Typography>
+                </Stack>
+              )}
+            </Box>
+            <Box
+              sx={{
+                display: { xs: "flex", md: "none" },
+              }}
+            >
               <IconButton
                 size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
+                aria-label="show more"
+                aria-controls={mobileMenuId}
                 aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
+                onClick={handleMobileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle />
+                <MoreIcon />
               </IconButton>
-            ) : (
-              <Stack
-                alignItems={"center"}
-                m={"auto 40px"}
-                onClick={() => {
-                  setOpenModal(true)
-                }}
-              >
-                <Typography
-                  variant="body-xxs"
-                  color={theme?.palette?.neuPalette?.hexOne}
-                  sx={{ cursor: "pointer" }}
-                >
-                  {"LOGIN / SIGNUP"}
-                </Typography>
-              </Stack>
-            )}
-          </Box>
-          <Box
-            sx={{
-              display: { xs: "flex", md: "none" },
-            }}
-          >
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
+            </Box>
+          </Stack>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

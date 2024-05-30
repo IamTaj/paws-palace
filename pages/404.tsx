@@ -1,4 +1,3 @@
-import AppBarHeader from "@/components/appBar"
 import Footer from "@/components/footer"
 import Header from "@/components/header"
 import { Box } from "@mui/material"

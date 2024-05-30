@@ -11,6 +11,7 @@ export default function HeroBannerCard({ image, largeImage, identifier }: any) {
     <Stack
       sx={{
         // paddingTop: isMobile ? "80px" : "80px",
+        background:"linear-gradient(100deg, #254735, #65a798)"
       }}
     >
       <Box
