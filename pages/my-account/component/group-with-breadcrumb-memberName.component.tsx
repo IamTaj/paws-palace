@@ -16,10 +16,7 @@ export default function BreadcrumbMemberNameComponent() {
     return modifiedPathName
   }
   return (
-    <Stack
-      flexDirection={"row"}
-      justifyContent={"space-between"}
-    >
+    <Stack flexDirection={"row"} justifyContent={"space-between"}>
       <Stack flexDirection={"row"} gap={3}>
         {breadcrumbValues?.map((item: any, index: number) => (
           <Stack flexDirection={"row"} gap={3}>
@@ -29,7 +26,9 @@ export default function BreadcrumbMemberNameComponent() {
                 cursor: "pointer",
                 opacity: index === 0 ? 0.5 : 1,
                 color:
-                  index !== 0 && `${theme?.palette?.neuPalette?.hexSeventeen}`,
+                  index !== 0
+                    ? `${theme?.palette?.neuPalette?.hexSeventeen}`
+                    : "initial",
                 fontWeight: 500,
               }}
               onClick={() => {
@@ -38,7 +37,17 @@ export default function BreadcrumbMemberNameComponent() {
             >
               {modifiedBreadcrumbValues(item)}
             </Typography>
-            <Typography>
+            <Typography
+              sx={{
+                cursor: "pointer",
+                opacity: index === 0 ? 0.5 : 1,
+                color:
+                  index !== 0
+                    ? `${theme?.palette?.neuPalette?.hexSeventeen}`
+                    : "initial",
+                fontWeight: 500,
+              }}
+            >
               {index + 1 < breadcrumbValues?.length - 1 ? "/" : ""}
             </Typography>
           </Stack>
