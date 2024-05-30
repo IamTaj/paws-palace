@@ -16,7 +16,6 @@ export default function Group(props: any) {
     aesthetic,
   } = props
   const groupBackgroundColor = aesthetic?.backgroundColor
-  console.log("groupBackgroundColor: ", groupBackgroundColor)
   const groupPadding = aesthetic?.padding
   const isMobileView = useMobileCheck()
 

@@ -16,7 +16,6 @@ export default function Header() {
       setShowNavBar(false)
     }
   }
-  console.log("router",router)
 
   const debouncedHandleScroll = debounce(handleScroll, 80)
 

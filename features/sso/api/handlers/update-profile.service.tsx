@@ -4,7 +4,6 @@ import axios from "axios"
 
 export const handler: ApiHandler = {
   createRequest: (url, payload, headers) => {
-    console.log("url, payload, headers: ", url, payload, headers)
     return {
       url,
       data: payload,

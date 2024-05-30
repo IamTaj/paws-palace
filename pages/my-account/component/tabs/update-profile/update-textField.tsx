@@ -1,12 +1,5 @@
 import React, { useState } from "react"
-import {
-  Box,
-  ClickAwayListener,
-  Grow,
-  InputAdornment,
-  Stack,
-  TextField,
-} from "@mui/material"
+import { Grow, InputAdornment, Stack, TextField } from "@mui/material"
 import ModeEditIcon from "@mui/icons-material/ModeEdit"
 import { theme } from "@/lib/theme"
 
@@ -16,13 +9,8 @@ export default function CustomUpdateTextField({
   handleChangeForm,
   showButton = true,
 }: any) {
-  console.log("value: ", value)
   const [showEditIcon, setShowEditIcon] = useState<boolean>(false)
   const [disable, setDisable] = useState<boolean>(true)
-  //   const handleClickAway = () => {
-  //     setShowEditIcon(false)
-  //     setDisable(true)
-  //   }
   return (
     <Stack
       sx={{ justifyContent: "center" }}

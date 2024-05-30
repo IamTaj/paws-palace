@@ -16,7 +16,6 @@ export const breadcrumbList = (router: any) => {
           query,
           pathname: asPath?.[1],
         }
-  console.log("loc: ", loc?.query)
 
   const asPathParts = loc.pathname?.split(/\/|\?/)
 
