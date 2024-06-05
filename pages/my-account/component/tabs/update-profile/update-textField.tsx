@@ -8,6 +8,7 @@ export default function CustomUpdateTextField({
   value,
   handleChangeForm,
   showButton = true,
+  isFieldDisable = true
 }: any) {
   const [showEditIcon, setShowEditIcon] = useState<boolean>(false)
   const [disable, setDisable] = useState<boolean>(true)
@@ -21,7 +22,7 @@ export default function CustomUpdateTextField({
         id="standard-basic"
         value={value}
         name={name}
-        disabled={disable}
+        disabled={disable && isFieldDisable}
         onChange={handleChangeForm}
         variant="standard"
         fullWidth

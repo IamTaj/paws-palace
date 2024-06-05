@@ -4,6 +4,7 @@ import { Box, Grid, keyframes, Typography } from "@mui/material"
 import React, { Fragment } from "react"
 
 export default function SplitGroupLayoutComponent({ items }: any) {
+  console.log('items: ', items);
   const animationKeyFrame = keyframes`
     100% {
         offset-distance: 100%;

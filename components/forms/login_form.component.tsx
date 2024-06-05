@@ -18,6 +18,7 @@ import { pawsPalaceGlobalStore } from "@/globalStore/paws-palace.store"
 import { handler as ProfileHandler } from "../../features/sso/api/handlers/profile.service"
 import { handler as LoginHandler } from "../../features/sso/api/handlers/login.service"
 import { useRouter } from "next/router"
+import { useAppNavigation } from "@/utils/useAppNavigation"
 
 function Copyright(props: any) {
   return (
@@ -41,6 +42,7 @@ export default function LoginFormComponent() {
   type AppDispatch = typeof pawsPalaceGlobalStore.dispatch
   const isMobile = useMobileCheck()
   const router = useRouter()
+  const navigate = useAppNavigation()
   const [loading, setLoading] = useState<boolean>(false)
   const [loginUserDetails, setLoginUserDetails] = useState<any>({
     email: "",
@@ -56,7 +58,8 @@ export default function LoginFormComponent() {
         global?.window?.localStorage?.setItem("firstName", data?.firstName)
         global?.window?.localStorage?.setItem("lastName", data?.lastName)
         global?.window?.localStorage?.setItem("email", data?.email)
-        router?.reload()
+        // router?.reload()
+        navigate("/")
       }
     } catch (error) {
       console.log("error at user profile", error)
@@ -88,6 +91,9 @@ export default function LoginFormComponent() {
     } else if (name === "password") {
       setLoginUserDetails({ ...loginUserDetails, password: value })
     }
+  }
+  const handleForgetPassword = () => {
+    navigate("/password-reset")
   }
 
   return (
@@ -170,8 +176,10 @@ export default function LoginFormComponent() {
                 </Typography>
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="#">Forgot password?</Link>
+                <Grid item xs sx={{ cursor: "pointer" }}>
+                  <Link onClick={() => handleForgetPassword()}>
+                    Forgot password?
+                  </Link>
                 </Grid>
                 <Grid item>
                   <Box sx={{ cursor: "pointer" }}>

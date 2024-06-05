@@ -4,3 +4,4 @@ export const USER_PROFILE = `${process.env.NEXT_PUBLIC_SSO_BASE_URL}users/profil
 export const UPDATE_PROFILE = `${process.env.NEXT_PUBLIC_SSO_BASE_URL}users/update`
 export const DEACTIVATE_PROFILE = `${process.env.NEXT_PUBLIC_SSO_BASE_URL}users/deactivate`
 export const FORGET_PASSWORD = `${process.env.NEXT_PUBLIC_SSO_BASE_URL}auth/forget-password`
+export const MAIL_SERVICE = "/api/triggerMail"

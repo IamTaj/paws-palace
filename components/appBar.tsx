@@ -109,7 +109,8 @@ export default function AppBarHeader({
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget)
+    // setAnchorEl(event.currentTarget)
+    navigate("/my-account")
   }
 
   const handleMobileMenuClose = () => {
@@ -129,33 +130,33 @@ export default function AppBarHeader({
   }
 
   const menuId = "primary-search-account-menu"
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem
-        onClick={() => {
-          handleMenuClose
-          navigate("/my-account")
-        }}
-      >
-        My account
-      </MenuItem>
-    </Menu>
-  )
+  // const renderMenu = (
+  //   <Menu
+  //     anchorEl={anchorEl}
+  //     anchorOrigin={{
+  //       vertical: "top",
+  //       horizontal: "right",
+  //     }}
+  //     id={menuId}
+  //     keepMounted
+  //     transformOrigin={{
+  //       vertical: "top",
+  //       horizontal: "right",
+  //     }}
+  //     open={isMenuOpen}
+  //     onClose={handleMenuClose}
+  //   >
+  //     <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+  //     <MenuItem
+  //       onClick={() => {
+  //         handleMenuClose
+  //         navigate("/my-account")
+  //       }}
+  //     >
+  //       My account
+  //     </MenuItem>
+  //   </Menu>
+  // )
 
   const mobileMenuId = "primary-search-account-menu-mobile"
   const renderMobileMenu = (
@@ -414,7 +415,7 @@ export default function AppBarHeader({
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
+      {/* {renderMenu} */}
       {openModal && (
         <BasicModal
           style={{

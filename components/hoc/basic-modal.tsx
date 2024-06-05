@@ -10,7 +10,7 @@ export default function BasicModal({
   style,
   Component,
   closeButton,
-  top,
+  
 }: any) {
   const isMobile = useMobileCheck()
   return (
