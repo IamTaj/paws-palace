@@ -32,7 +32,9 @@ export default function Group(props: any) {
         isBackground ? (isMobileView ? MobilePxToVw(30) : DesktopPxToVw(30)) : 0
       }
       p={groupPadding ? groupPadding : 0}
-      sx={{ background: groupBackgroundColor ? groupBackgroundColor : "none" }}
+      sx={{
+        background: groupBackgroundColor ? groupBackgroundColor : "initial",
+      }}
     >
       {title && <MultiRowTitle title={title} />}
       {groupVariant && renderGroupVariant(groupVariant, items, columnValue)}

@@ -8,13 +8,14 @@ export enum ApiMethod {
 }
 
 export type ApiHandler = {
-    createRequest: (
-      url: string,
-      payload?: any,
-      user?: any,
-      withCredentials?: boolean,
-      timeout?: number,
-    ) => AxiosRequestConfig
-    mapResponse: (title: string, response: any) => { [key: string]: any }
-    apiCall?: any
-  }
+  createRequest: (
+    url: string,
+    payload?: any,
+    user?: any,
+    body?: any,
+    withCredentials?: boolean,
+    timeout?: number
+  ) => AxiosRequestConfig
+  mapResponse: (title: string, response: any) => { [key: string]: any }
+  apiCall?: any
+}

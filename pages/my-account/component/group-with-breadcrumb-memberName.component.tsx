@@ -1,19 +1,29 @@
 import { theme } from "@/lib/theme"
 import { breadcrumbList } from "@/utils/getBreadCrumb"
+import { useMobileCheck } from "@/utils/mobile-viewport-check"
 import { PathType, useAppNavigation } from "@/utils/useAppNavigation"
 import { Box, Stack, Typography } from "@mui/material"
 import { useRouter } from "next/router"
-import React from "react"
+import React, { useState } from "react"
+import LogoutIcon from "@mui/icons-material/Logout"
 
 export default function BreadcrumbMemberNameComponent() {
   const router = useRouter()
   const navigate = useAppNavigation()
   const breadcrumbValues = breadcrumbList(router)
+  const isMobile = useMobileCheck()
+  const [hoverOnButton, setHoverOnButton] = useState<boolean>(false)
   const userName = `${global.window?.localStorage?.getItem("firstName")} ${global.window?.localStorage?.getItem("lastName")}`
-  // const lastName = global.window?.localStorage?.getItem("lastName")
   const modifiedBreadcrumbValues = (item: any) => {
     let modifiedPathName = item?.text?.replace("-", " ")?.toUpperCase()
     return modifiedPathName
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken")
+    localStorage.removeItem("lastName")
+    localStorage.removeItem("firstName")
+    navigate("/")
   }
   return (
     <Stack flexDirection={"row"} justifyContent={"space-between"}>
@@ -53,21 +63,65 @@ export default function BreadcrumbMemberNameComponent() {
           </Stack>
         ))}
       </Stack>
-      <Stack flexDirection={"row"} gap={1.5}>
-        <Typography
-          variant="body-s"
-          sx={{ color: theme?.palette?.neuPalette?.hexSeventeen }}
-        >
-          {"Welcome ! "}
-        </Typography>
-        <Typography
-          variant="body-s"
+      <Stack alignItems={"center"} gap={2}>
+        <Stack flexDirection={"row"} gap={1.5}>
+          <Typography
+            variant="body-s"
+            sx={{ color: theme?.palette?.neuPalette?.hexSeventeen }}
+          >
+            {"Welcome ! "}
+          </Typography>
+          <Typography
+            variant="body-s"
+            sx={{
+              color: theme?.palette?.neuPalette?.hexThirtyThree,
+            }}
+          >
+            {userName}
+          </Typography>
+        </Stack>
+        <Stack
+          flexDirection={"row"}
+          gap={1}
+          onMouseEnter={() => setHoverOnButton(true)}
+          onMouseLeave={() => setHoverOnButton(false)}
+          onClick={() => handleLogout()}
           sx={{
-            color: theme?.palette?.neuPalette?.hexThirtyThree,
+            cursor: "pointer",
+            background: hoverOnButton
+              ? theme?.palette?.neuPalette?.hexOne
+              : theme?.palette?.neuPalette?.hexThirtyThree,
+            borderRadius: "1vw",
+            padding: "5px 30px",
+            // ":hover": {
+            //   background: theme?.palette?.neuPalette?.hexOne,
+            //   transitionDelay: "1000s",
+            //   transition: "ease-in-out",
+            // },
           }}
         >
-          {userName}
-        </Typography>
+          <LogoutIcon
+            fontSize="small"
+            sx={{
+              color: hoverOnButton
+                ? theme?.palette?.neuPalette?.hexThirtyThree
+                : theme?.palette?.neuPalette?.hexOne,
+              // ":hover": {
+              //   color: theme?.palette?.neuPalette?.hexThirtyThree,
+              // },
+            }}
+          />
+          <Typography
+            variant={isMobile ? "m-body-xs" : "body-xs"}
+            sx={{
+              color: hoverOnButton
+                ? theme?.palette?.neuPalette?.hexThirtyThree
+                : theme?.palette?.neuPalette?.hexOne,
+            }}
+          >
+            LOG OUT
+          </Typography>
+        </Stack>
       </Stack>
     </Stack>
   )
