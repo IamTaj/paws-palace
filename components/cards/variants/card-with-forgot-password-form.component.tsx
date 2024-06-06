@@ -3,6 +3,7 @@ import Stepper from "@/components/stepper/stepper.component"
 import { handler as MailService } from "@/features/nodemailer/api/handlers/mail.service"
 import { theme } from "@/lib/theme"
 import CustomUpdateTextField from "@/pages/my-account/component/tabs/update-profile/update-textField"
+import LoadingSpinner from "@/utils/LoadingComponent"
 import { useMobileCheck } from "@/utils/mobile-viewport-check"
 import { DesktopPxToVw, MobilePxToVw } from "@/utils/view-port-calculator"
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material"
@@ -26,14 +27,16 @@ export default function ForgotPasswordForm({ title, subTitle }: any) {
   }
   const [userUpdatedData, setUserUpdatedData] = useState<any>(initialValues)
   const [networkResponse, setNetworkResponse] = useState<any>()
+  const [loading, setLoading] = useState<boolean>(false)
   const handleBack = () => {
     setActiveStep((prevActiveStep: number) => prevActiveStep - 1)
   }
 
   const triggerMail = async () => {
+    setLoading(true)
     const payload = {
       recipientEmail: userUpdatedData?.email,
-      otp:OTP
+      otp: OTP,
     }
     const response = await MailService.apiCall(payload)
     if (response.error) {
@@ -41,11 +44,13 @@ export default function ForgotPasswordForm({ title, subTitle }: any) {
         state: "error",
         message: response.data,
       })
+      setLoading(false)
     } else {
       setNetworkResponse({
         state: "success",
         message: "Your message was sent successfully.",
       })
+      setLoading(false)
     }
   }
   const handleNext = () => {
@@ -69,10 +74,9 @@ export default function ForgotPasswordForm({ title, subTitle }: any) {
   }
 
   const generateOtpCode = () => {
-    return  Math.floor(Math.random() * 900000) + 100000
+    return Math.floor(Math.random() * 900000) + 100000
   }
   const OTP = generateOtpCode()?.toString()
-  console.log("OTP: ", OTP)
   return (
     <Box p={8}>
       <Stack alignItems={"center"}>
@@ -83,12 +87,20 @@ export default function ForgotPasswordForm({ title, subTitle }: any) {
           {title}
         </Typography>
       </Stack>
-      <RenderStepperComponent
-        activeStep={activeStep}
-        setActiveStep={setActiveStep}
-        handleChangeForm={handleChangeForm}
-        OTP={OTP}
-      />
+
+      {loading ? (
+        <LoadingSpinner
+          componentLevel={true}
+          containerStyle={{ maxHeight: DesktopPxToVw(200) }}
+        />
+      ) : (
+        <RenderStepperComponent
+          activeStep={activeStep}
+          setActiveStep={setActiveStep}
+          handleChangeForm={handleChangeForm}
+          OTP={OTP}
+        />
+      )}
       <Stack flexDirection={"row"} justifyContent={"flex-end"} gap={5} py={5}>
         <Button
           onClick={handleBack}
