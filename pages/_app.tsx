@@ -8,6 +8,7 @@ import {
 } from "@/globalStore/paws-palace.store"
 import { PersistGate } from "redux-persist/integration/react"
 import { Provider } from "react-redux"
+import { PageTransitionLoader } from "@/utils/pageTransitionLoader"
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Provider store={pawsPalaceGlobalStore}>
         <PersistGate loading={null} persistor={pawsPalaceGlobalPersistor}>
           <ThemeProvider theme={theme}>
+          <PageTransitionLoader />
             <Component {...pageProps} />
           </ThemeProvider>
         </PersistGate>
