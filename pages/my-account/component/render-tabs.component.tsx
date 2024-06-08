@@ -20,7 +20,7 @@ export default function RenderTabsItem({ tabProps, handleChange, value }: any) {
               <Stack sx={{ alignItems: "center" }}>
                 <Typography
                   onClick={() =>
-                    handleChange(tabsItem?.index, tabsItem?.tabName)
+                    handleChange(tabsItem?.index)
                   }
                   sx={{
                     textTransform: "uppercase",

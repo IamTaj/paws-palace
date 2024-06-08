@@ -18,8 +18,12 @@ export default function RenderTabsComponent() {
     tabTitle: tabsData?.[0]?.tabsItem?.[0]?.tabName,
   })
 
-  const handleChange = (newValue: number, tabName: string) => {
-    setTabValue({ ...tabValue, value: newValue, tabTitle: tabName })
+  const handleChange = (newValue: number) => {
+    const tabItemsData = tabsData?.flatMap((item: any) => item?.tabsItem)
+    const tabsTitle = tabItemsData?.find(
+      (item: any) => item?.index === newValue
+    )
+    setTabValue({ ...tabValue, value: newValue, tabTitle: tabsTitle?.tabName })
   }
 
   return (
@@ -48,28 +52,8 @@ export default function RenderTabsComponent() {
           <RenderTabsPanel
             tabsPanelIndex={tabValue?.value}
             tabTitle={tabValue?.tabTitle}
+            handleChange={handleChange}
           />
-          {/* <TabPanel value={value} index={0}>
-            Item One
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            Item Two
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            Item Three
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            Item Four
-          </TabPanel>
-          <TabPanel value={value} index={4}>
-            Item Five
-          </TabPanel>
-          <TabPanel value={value} index={5}>
-            Item Six
-          </TabPanel>
-          <TabPanel value={value} index={6}>
-            Item Seven
-          </TabPanel> */}
         </Grid>
       </Grid>
     </Stack>

@@ -19,6 +19,7 @@ import { handler as ProfileHandler } from "../../features/sso/api/handlers/profi
 import { handler as LoginHandler } from "../../features/sso/api/handlers/login.service"
 import { useRouter } from "next/router"
 import { useAppNavigation } from "@/utils/useAppNavigation"
+import LoadingSpinner from "@/utils/LoadingComponent"
 
 function Copyright(props: any) {
   return (
@@ -50,7 +51,6 @@ export default function LoginFormComponent() {
   })
 
   const setProfileDetails = async () => {
-    setLoading(true)
     try {
       const accessToken = global?.window?.localStorage?.getItem("accessToken")
       const { error, data } = await ProfileHandler.apiCall(accessToken)
@@ -58,17 +58,16 @@ export default function LoginFormComponent() {
         global?.window?.localStorage?.setItem("firstName", data?.firstName)
         global?.window?.localStorage?.setItem("lastName", data?.lastName)
         global?.window?.localStorage?.setItem("email", data?.email)
-        // router?.reload()
-        navigate("/")
+        router?.reload()
       }
     } catch (error) {
       console.log("error at user profile", error)
     } finally {
-      setLoading(false)
     }
   }
 
   const handleSubmit = async (event: any) => {
+    setLoading(true)
     event?.preventDefault()
     if (loginUserDetails?.email && loginUserDetails?.password) {
       try {
@@ -98,6 +97,7 @@ export default function LoginFormComponent() {
 
   return (
     <Box sx={{ background: theme?.palette?.neuPalette?.hexOne }}>
+      {loading && <LoadingSpinner />}
       <Grid container sx={{ width: isMobile ? "100%" : "50vw" }}>
         <CssBaseline />
         <Grid
