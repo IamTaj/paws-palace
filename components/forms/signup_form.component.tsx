@@ -64,22 +64,6 @@ export default function SignInFormComponent({
     setShowPassword(!showPassword)
   }
 
-  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event?.preventDefault()
-  //   if (userData?.email && userData?.password) {
-  //     signInWithEmailAndPassword(auth, email, password)
-  //       .then((userCredential) => {
-  //         // Signed in
-  //         const user = userCredential.user
-  //         // ...
-  //       })
-  //       .catch((error) => {
-  //         const errorCode = error.code
-  //         const errorMessage = error.message
-  //       })
-  //   }
-  // }
-
   const setProfileDetails = async () => {
     setLoading(true)
     try {
