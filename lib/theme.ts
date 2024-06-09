@@ -147,7 +147,7 @@ const typography = {
 
   "link-m": {
     fontWeight: 400,
-    color: "#AD8B3A",
+    color: "#e0115f",
     fontSize: "18px",
     lineHeight: "140%",
     letterSpacing: "0.1em",
@@ -280,7 +280,7 @@ const typography = {
   "m-text-link": {
     //18px
     fontWeight: 400,
-    color: "#AD8B3A",
+    color: "#e0115f",
     fontSize: "18px",
     lineHeight: "150%",
     fontFamily: "Inter",
@@ -289,7 +289,7 @@ const typography = {
 
   "m-link-m": {
     fontWeight: 400,
-    color: "#AD8B3A",
+    color: "#e0115f",
     fontSize: "48px",
     lineHeight: "140%",
     letterSpacing: "0.1em",

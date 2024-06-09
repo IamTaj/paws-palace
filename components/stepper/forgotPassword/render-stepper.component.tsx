@@ -6,7 +6,10 @@ import ValidateOtpComponent from "./validate-otp.component"
 export default function RenderStepperComponent({
   activeStep,
   handleChangeForm,
+  setDisableButton,
   OTP,
+  triggerMail,
+  setActiveStep
 }: any) {
   switch (activeStep) {
     case 0:
@@ -16,11 +19,18 @@ export default function RenderStepperComponent({
         />
       )
     case 1:
-      return <ValidateOtpComponent handleChangeForm={handleChangeForm} />
+      return (
+        <ValidateOtpComponent
+          handleChangeForm={handleChangeForm}
+          setDisableButton={setDisableButton}
+          OTP={OTP}
+          triggerMail={triggerMail}
+          setActiveStep={setActiveStep}
+        />
+      )
     case 2:
       return <ChangePasswordComponent handleChangeForm={handleChangeForm} />
     default:
       return <></>
   }
-  return <div>RenderStepperCOmponent</div>
 }

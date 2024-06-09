@@ -7,6 +7,7 @@ import React from "react"
 
 export default function ChangePasswordComponent({ handleChangeForm }: any) {
   const isMobile = useMobileCheck()
+  
   return (
     <Stack gap={4}>
       <Box sx={{ width: "100%" }}>
