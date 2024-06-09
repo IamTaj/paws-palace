@@ -17,7 +17,7 @@ export default function RenderTabsPanel({
     case 2:
       return <OrderTab tabTitle={tabTitle} />
     case 3:
-      return <InviteFriendTab tabTitle={tabTitle} />
+      return <OrderTab tabTitle={tabTitle} />
     case 4:
       return <InviteFriendTab tabTitle={tabTitle} />
   }
